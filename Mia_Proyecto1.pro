@@ -4,4 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.c
+    lex.yy.c
+
+DISTFILES += \
+    generator.bat
+
+HEADERS += \
+    Lexicon.l
