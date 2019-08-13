@@ -49,42 +49,41 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    DOUBLE = 259,
-    CHAR = 260,
-    STRING = 261,
-    ID = 262,
+    Value_Int = 258,
+    Value_Double = 259,
+    Value_Char = 260,
+    Value_String = 261,
+    Id = 262,
     exit_command = 263,
-    MKDISK = 264,
-    RMDISK = 265,
-    FDISK = 266,
-    MOUNT = 267,
-    UNMOUNT = 268,
-    REPORT = 269,
-    EXECUTE = 270,
-    SIZE = 271,
-    FIT = 272,
-    BF = 273,
-    FF = 274,
-    WF = 275,
-    UNIT = 276,
-    KBYTES = 277,
-    MBYTES = 278,
-    PATH = 279,
-    TYPE = 280,
-    PRIMARY = 281,
-    EXTENDED = 282,
-    LOGIC = 283,
-    DELETE = 284,
-    FAST = 285,
-    FULL = 286,
-    NAME = 287,
-    ADD = 288,
-    MBR = 289,
-    EBR = 290,
-    DISC = 291,
-    IDENTIFY = 292,
-    ER = 293
+    Mkdisk = 264,
+    Rmdisk = 265,
+    Fdisk = 266,
+    Mount = 267,
+    Unmount = 268,
+    Report = 269,
+    Execute = 270,
+    Size = 271,
+    Fit = 272,
+    Bf = 273,
+    Ff = 274,
+    Wf = 275,
+    Unit = 276,
+    Kbytes = 277,
+    Mbytes = 278,
+    Path = 279,
+    Type = 280,
+    Primary = 281,
+    Extended = 282,
+    Logic = 283,
+    Delete = 284,
+    Fast = 285,
+    Full = 286,
+    Name = 287,
+    Add = 288,
+    Mbr = 289,
+    Ebr = 290,
+    Disc = 291,
+    Identify = 292
   };
 #endif
 
@@ -100,7 +99,7 @@ char TEXT [256];
 char TEXT2 [256];
 //class NodoAST *nodito;
 
-#line 104 "Syntact.tab.h" /* yacc.c:1921  */
+#line 103 "Syntact.tab.h" /* yacc.c:1921  */
 };
 
 typedef union YYSTYPE YYSTYPE;

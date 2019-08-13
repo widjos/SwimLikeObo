@@ -939,168 +939,168 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 45 "Lexicon.l"
-{strcpy(yylval.TEXT, yytext);  return INT;}
+{  strcpy(yylval.TEXT, yytext);    return Value_Int;        }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 46 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);    return DOUBLE;     }
+{  strcpy(yylval.TEXT, yytext);    return Value_Double;     }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 47 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);   return CHAR;       }
+{  strcpy(yylval.TEXT, yytext);    return Value_Char;       }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
 #line 48 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return STRING;     }
+{  strcpy(yylval.TEXT, yytext);    return Value_String;     }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 52 "Lexicon.l"
-{strcpy(yylval.TEXT, yytext);  printf("encontro");   return MKDISK;}
+{   strcpy(yylval.TEXT, yytext);   return Mkdisk;     }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 53 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return RMDISK;     }
+{   strcpy(yylval.TEXT, yytext);   return Rmdisk;     }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 54 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return FDISK;      }
+{   strcpy(yylval.TEXT, yytext);   return Fdisk;      }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 55 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return MOUNT;      }
+{   strcpy(yylval.TEXT, yytext);   return Mount;      }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 56 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return UNMOUNT;    }
+{   strcpy(yylval.TEXT, yytext);   return Unmount;    }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 57 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return REPORT;     }
+{   strcpy(yylval.TEXT, yytext);   return Report;     }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 58 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return EXECUTE;    }
+{   strcpy(yylval.TEXT, yytext);   return Execute;    }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 59 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return SIZE;       }
+{   strcpy(yylval.TEXT, yytext);   return Size;       }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 60 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return FIT;        }
+{   strcpy(yylval.TEXT, yytext);   return Fit;        }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 61 "Lexicon.l"
-{    strcpy(yylval.TEXT, yytext);  return BF;         }
+{   strcpy(yylval.TEXT, yytext);   return Bf;         }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 62 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return FF;         }
+{   strcpy(yylval.TEXT, yytext);   return Ff;         }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 63 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);   return WF;         }
+{   strcpy(yylval.TEXT, yytext);   return Wf;         }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 64 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return UNIT;       }
+{   strcpy(yylval.TEXT, yytext);   return Unit;       }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 65 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);   return KBYTES;     }
+{   strcpy(yylval.TEXT, yytext);   return Kbytes;     }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 66 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return MBYTES;     }
+{   strcpy(yylval.TEXT, yytext);   return Mbytes;     }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 67 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);   return PATH;       }
+{   strcpy(yylval.TEXT, yytext);   return Path;       }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 68 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return TYPE;       }
+{   strcpy(yylval.TEXT, yytext);   return Type;       }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 69 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return PRIMARY;    }
+{   strcpy(yylval.TEXT, yytext);   return Primary;    }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 70 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return EXTENDED;   }
+{   strcpy(yylval.TEXT, yytext);   return Extended;   }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 71 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);   return LOGIC;      }
+{   strcpy(yylval.TEXT, yytext);   return Logic;      }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 72 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);   return DELETE;     }
+{   strcpy(yylval.TEXT, yytext);   return Delete;     }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 73 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);   return FAST;       }
+{   strcpy(yylval.TEXT, yytext);   return Fast;       }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 74 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return FULL;       }
+{   strcpy(yylval.TEXT, yytext);   return Full;       }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 75 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return NAME;       }
+{   strcpy(yylval.TEXT, yytext);   return Name;       }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 76 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return ADD;        }
+{   strcpy(yylval.TEXT, yytext);   return Add;        }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 77 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return MBR;        }
+{   strcpy(yylval.TEXT, yytext);   return Mbr;        }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 78 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return EBR;        }
+{   strcpy(yylval.TEXT, yytext);   return Ebr;        }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 79 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return DISC;       }
+{   strcpy(yylval.TEXT, yytext);   return Disc;       }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 80 "Lexicon.l"
-{   strcpy(yylval.TEXT, yytext);  return IDENTIFY;   }
+{   strcpy(yylval.TEXT, yytext);   return Identify;   }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
@@ -1110,12 +1110,12 @@ YY_RULE_SETUP
 case 37:
 YY_RULE_SETUP
 #line 83 "Lexicon.l"
-return yytext[0];
+{ return yytext[0]; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 85 "Lexicon.l"
-{  strcpy(yylval.TEXT, yytext);  return ID;         }
+{  strcpy(yylval.TEXT, yytext);  return Id;         }
 	YY_BREAK
 case 39:
 /* rule 39 can match eol */

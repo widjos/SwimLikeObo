@@ -121,42 +121,41 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    DOUBLE = 259,
-    CHAR = 260,
-    STRING = 261,
-    ID = 262,
+    Value_Int = 258,
+    Value_Double = 259,
+    Value_Char = 260,
+    Value_String = 261,
+    Id = 262,
     exit_command = 263,
-    MKDISK = 264,
-    RMDISK = 265,
-    FDISK = 266,
-    MOUNT = 267,
-    UNMOUNT = 268,
-    REPORT = 269,
-    EXECUTE = 270,
-    SIZE = 271,
-    FIT = 272,
-    BF = 273,
-    FF = 274,
-    WF = 275,
-    UNIT = 276,
-    KBYTES = 277,
-    MBYTES = 278,
-    PATH = 279,
-    TYPE = 280,
-    PRIMARY = 281,
-    EXTENDED = 282,
-    LOGIC = 283,
-    DELETE = 284,
-    FAST = 285,
-    FULL = 286,
-    NAME = 287,
-    ADD = 288,
-    MBR = 289,
-    EBR = 290,
-    DISC = 291,
-    IDENTIFY = 292,
-    ER = 293
+    Mkdisk = 264,
+    Rmdisk = 265,
+    Fdisk = 266,
+    Mount = 267,
+    Unmount = 268,
+    Report = 269,
+    Execute = 270,
+    Size = 271,
+    Fit = 272,
+    Bf = 273,
+    Ff = 274,
+    Wf = 275,
+    Unit = 276,
+    Kbytes = 277,
+    Mbytes = 278,
+    Path = 279,
+    Type = 280,
+    Primary = 281,
+    Extended = 282,
+    Logic = 283,
+    Delete = 284,
+    Fast = 285,
+    Full = 286,
+    Name = 287,
+    Add = 288,
+    Mbr = 289,
+    Ebr = 290,
+    Disc = 291,
+    Identify = 292
   };
 #endif
 
@@ -172,7 +171,7 @@ char TEXT [256];
 char TEXT2 [256];
 //class NodoAST *nodito;
 
-#line 176 "Syntact.tab.c" /* yacc.c:352  */
+#line 175 "Syntact.tab.c" /* yacc.c:352  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -439,7 +438,7 @@ union yyalloc
 #define YYLAST   9
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  40
+#define YYNTOKENS  39
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
@@ -448,7 +447,7 @@ union yyalloc
 #define YYNSTATES  11
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   293
+#define YYMAXUTOK   292
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
    as returned by yylex, with out-of-bounds checking.  */
@@ -465,7 +464,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    39,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,    38,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -488,14 +487,14 @@ static const yytype_uint8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38
+      35,    36,    37
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    90,    90,    91,    95,    96,    99
+       0,    91,    91,    92,    97,    98,   101
 };
 #endif
 
@@ -504,12 +503,12 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "INT", "DOUBLE", "CHAR", "STRING", "ID",
-  "exit_command", "MKDISK", "RMDISK", "FDISK", "MOUNT", "UNMOUNT",
-  "REPORT", "EXECUTE", "SIZE", "FIT", "BF", "FF", "WF", "UNIT", "KBYTES",
-  "MBYTES", "PATH", "TYPE", "PRIMARY", "EXTENDED", "LOGIC", "DELETE",
-  "FAST", "FULL", "NAME", "ADD", "MBR", "EBR", "DISC", "IDENTIFY", "ER",
-  "'='", "$accept", "S", "Line", "MK", YY_NULLPTR
+  "$end", "error", "$undefined", "Value_Int", "Value_Double",
+  "Value_Char", "Value_String", "Id", "exit_command", "Mkdisk", "Rmdisk",
+  "Fdisk", "Mount", "Unmount", "Report", "Execute", "Size", "Fit", "Bf",
+  "Ff", "Wf", "Unit", "Kbytes", "Mbytes", "Path", "Type", "Primary",
+  "Extended", "Logic", "Delete", "Fast", "Full", "Name", "Add", "Mbr",
+  "Ebr", "Disc", "Identify", "'='", "$accept", "S", "Line", "MK", YY_NULLPTR
 };
 #endif
 
@@ -521,14 +520,14 @@ static const yytype_uint16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,   293,    61
+     285,   286,   287,   288,   289,   290,   291,   292,    61
 };
 # endif
 
-#define YYPACT_NINF -36
+#define YYPACT_NINF -35
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-36)))
+  (!!((Yystate) == (-35)))
 
 #define YYTABLE_NINF -1
 
@@ -539,8 +538,8 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -7,   -36,   -13,     0,   -36,   -35,   -36,   -36,   -36,     2,
-     -36
+      -7,   -35,   -13,     0,   -35,   -34,   -35,   -35,   -35,     2,
+     -35
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -548,14 +547,14 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     5,     0,     0,     2,     0,     4,     1,     3,     0,
+       0,     5,     0,     0,     3,     0,     4,     1,     2,     0,
        6
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -36,   -36,     3,   -36
+     -35,   -35,     3,   -35
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -574,27 +573,27 @@ static const yytype_uint8 yytable[] =
 
 static const yytype_int8 yycheck[] =
 {
-       0,     8,     9,    16,    39,     3,     3,    -1,     8,     9
+       0,     8,     9,    16,    38,     3,     3,    -1,     8,     9
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     8,     9,    41,    42,    16,    43,     0,    42,    39,
+       0,     8,     9,    40,    41,    16,    42,     0,    41,    38,
        3
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    40,    41,    41,    42,    42,    43
+       0,    39,    40,    40,    41,    41,    42
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     2,     1,     3
+       0,     2,     2,     1,     2,     1,     3
 };
 
 
@@ -1374,37 +1373,37 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 90 "Syntact.y" /* yacc.c:1652  */
-    {printf("finalizado");}
-#line 1380 "Syntact.tab.c" /* yacc.c:1652  */
+#line 91 "Syntact.y" /* yacc.c:1652  */
+    {printf("recursivo lineas ");}
+#line 1379 "Syntact.tab.c" /* yacc.c:1652  */
     break;
 
   case 3:
-#line 91 "Syntact.y" /* yacc.c:1652  */
-    {printf("recursivo lineas");}
-#line 1386 "Syntact.tab.c" /* yacc.c:1652  */
+#line 92 "Syntact.y" /* yacc.c:1652  */
+    {printf("finalizado ");}
+#line 1385 "Syntact.tab.c" /* yacc.c:1652  */
     break;
 
   case 4:
-#line 95 "Syntact.y" /* yacc.c:1652  */
-    { printf("make disk command");}
-#line 1392 "Syntact.tab.c" /* yacc.c:1652  */
+#line 97 "Syntact.y" /* yacc.c:1652  */
+    { printf("make disk command ");}
+#line 1391 "Syntact.tab.c" /* yacc.c:1652  */
     break;
 
   case 5:
-#line 96 "Syntact.y" /* yacc.c:1652  */
+#line 98 "Syntact.y" /* yacc.c:1652  */
     { exit(EXIT_SUCCESS); }
-#line 1398 "Syntact.tab.c" /* yacc.c:1652  */
+#line 1397 "Syntact.tab.c" /* yacc.c:1652  */
     break;
 
   case 6:
-#line 99 "Syntact.y" /* yacc.c:1652  */
-    {printf("size fint"); }
-#line 1404 "Syntact.tab.c" /* yacc.c:1652  */
+#line 101 "Syntact.y" /* yacc.c:1652  */
+    {printf("size fint "); }
+#line 1403 "Syntact.tab.c" /* yacc.c:1652  */
     break;
 
 
-#line 1408 "Syntact.tab.c" /* yacc.c:1652  */
+#line 1407 "Syntact.tab.c" /* yacc.c:1652  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1641,7 +1640,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 107 "Syntact.y" /* yacc.c:1918  */
+#line 109 "Syntact.y" /* yacc.c:1918  */
 
 
 

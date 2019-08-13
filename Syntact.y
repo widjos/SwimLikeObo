@@ -31,47 +31,47 @@ char TEXT2 [256];
 %locations
 
 //TERMINALES DE TIPO TEXT, SON STRINGS
-%token<TEXT> INT;
-%token<TEXT> DOUBLE;
-%token<TEXT> CHAR;
-%token<TEXT> STRING;
-%token<TEXT> ID;
+%token<TEXT> Value_Int;
+%token<TEXT> Value_Double;
+%token<TEXT> Value_Char;
+%token<TEXT> Value_String;
+%token<TEXT> Id;
 
 %token<TEXT>   exit_command;
-%token<TEXT>   MKDISK;  	 
-%token<TEXT>   RMDISK; 	 
-%token<TEXT>   FDISK;	 
-%token<TEXT>   MOUNT;	 
-%token<TEXT>   UNMOUNT;  	 
-%token<TEXT>   REPORT;	 
-%token<TEXT>   EXECUTE; 	 
-%token<TEXT>   SIZE;    	 
-%token<TEXT>   FIT; 	 
+%token<TEXT>   Mkdisk;
+%token<TEXT>   Rmdisk;
+%token<TEXT>   Fdisk;
+%token<TEXT>   Mount;
+%token<TEXT>   Unmount;
+%token<TEXT>   Report;
+%token<TEXT>   Execute;
+%token<TEXT>   Size;
+%token<TEXT>   Fit;
              
-%token<TEXT>   BF;   	 
-%token<TEXT>   FF;  	 
-%token<TEXT>   WF;   	 
-%token<TEXT>   UNIT;   	 
-%token<TEXT>   KBYTES;	 
-%token<TEXT>   MBYTES;	 
+%token<TEXT>   Bf;
+%token<TEXT>   Ff;
+%token<TEXT>   Wf;
+%token<TEXT>   Unit;
+%token<TEXT>   Kbytes;
+%token<TEXT>   Mbytes;
              
-%token<TEXT>   PATH;      	 
-%token<TEXT>   TYPE;     	 
-%token<TEXT>   PRIMARY;
-%token<TEXT>   EXTENDED;     	      	 
+%token<TEXT>   Path;
+%token<TEXT>   Type;
+%token<TEXT>   Primary;
+%token<TEXT>   Extended;
              
-%token<TEXT>   LOGIC;   
-%token<TEXT>   DELETE;   
-%token<TEXT>   FAST;    
-%token<TEXT>   FULL;    
-%token<TEXT>   NAME;    
-%token<TEXT>   ADD;    
-%token<TEXT>   MBR; 
+%token<TEXT>   Logic;
+%token<TEXT>   Delete;
+%token<TEXT>   Fast;
+%token<TEXT>   Full;
+%token<TEXT>   Name;
+%token<TEXT>   Add;
+%token<TEXT>   Mbr;
   
-%token<TEXT>   EBR;
-%token<TEXT>   DISC;
-%token<TEXT>   IDENTIFY;     
-%token<TEXT>   ER;  		 
+%token<TEXT>   Ebr;
+%token<TEXT>   Disc;
+%token<TEXT>   Identify;
+
 
 
 
@@ -79,7 +79,8 @@ char TEXT2 [256];
 /*------------- NONTerminals ------------------*/
 
 
-%type<TEXT> S Line MK  ;
+%type<TEXT> S Line ;
+%type<TEXT> MK  ;
 
 
 
@@ -87,17 +88,17 @@ char TEXT2 [256];
 
 %%
 
-S  :   S Line   {printf("recursivo lineas ");}
-   |   Line     {printf("finalizado ");}
+S  :   S Line                   {printf("recursivo lineas ");}
+   |   Line                     {printf("finalizado ");}
 
   ;
 
 
-  Line :  MKDISK MK      { printf("make disk command ");}
-       |  exit_command   { exit(EXIT_SUCCESS); }
+  Line :  Mkdisk MK             { printf("make disk command ");}
+       |  exit_command          { exit(EXIT_SUCCESS); }
   ;
 
-  MK : SIZE '=' INT      {printf("size fint "); }
+  MK : Size '=' Value_Int       {printf("size fint "); }
 ;
 
 
