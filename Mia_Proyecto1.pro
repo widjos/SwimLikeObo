@@ -4,10 +4,14 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+    Syntact.tab.c \
     lex.yy.c
+
 
 DISTFILES += \
     generator.bat
 
 HEADERS += \
-    Lexicon.l
+    Lexicon.l \
+    Syntact.tab.h \
+    Syntact.y
