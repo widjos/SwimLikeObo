@@ -79,31 +79,55 @@ char TEXT2 [256];
 /*------------- NONTerminals ------------------*/
 
 
-%type<TEXT> S Line ;
-%type<TEXT> MK  ;
-
+%type<TEXT> S      Line ;
+%type<TEXT> MK     RM ;
+%type<TEXT> UN_FT;
+%type<TEXT> UBYTE  FOPTION ;
 
 
 %start S
 
 %%
 
-S  :   S Line                   {printf("recursivo lineas ");}
-   |   Line                     {printf("finalizado ");}
+S  :   S Line                                                                     {printf("recursivo lineas ");}
+   |   Line                                                                       {printf("finalizado ");}
 
   ;
 
 
-  Line :  Mkdisk MK             { printf("make disk command ");}
-       |  exit_command          { exit(EXIT_SUCCESS); }
-  ;
-
-  MK : Size '=' Value_Int       {printf("size fint "); }
+Line :  Mkdisk MK                                                                 { printf("make disk command ");   }
+     |  Rmdisk RM                                                                 { printf("remove disk command "); }
+     |  exit_command                                                              { exit(EXIT_SUCCESS);             }
 ;
 
+MK : Size '=' Value_Int     Path '=' Value_String                                 {printf(" Size and Path ");  }
+   | Path '=' Value_String  Size '=' Value_Int                                    {printf(" Path and Size");   }
+   | Size '=' Value_Int     UN_FT                    Path '=' Value_String        {printf(" Size Unit Path");  }
+   | UN_FT                  Size '=' Value_Int       Path '=' Value_String        {printf(" Unit Size  Path"); }
+   | Size '=' Value_Int     Path '=' Value_String    UN_FT                        {printf(" Unit Size  Path"); }
+;
+
+RM : Path '=' Value_String                                                          {printf(" Path ");}
 
 
 
+
+UN_FT : Unit '=' UBYTE      Fit '=' FOPTION                                         { printf(" U/F ") ;}
+      | Fit  '=' FOPTION    Unit '=' UBYTE                                          { printf(" F/U ") ;}  
+      | Unit '=' UBYTE                                                              { printf(" U ")   ;}  
+      | Fit  '=' FOPTION                                                            { printf(" F ")   ;}
+; 
+
+
+
+UBYTE : Kbytes
+      | Mbytes
+;
+
+FOPTION : Bf 
+        | Ff
+        | Wf
+;
 
 
 %%
