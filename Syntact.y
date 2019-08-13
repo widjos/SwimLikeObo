@@ -80,9 +80,9 @@ char TEXT2 [256];
 
 
 %type<TEXT> S      Line ;
-%type<TEXT> MK     RM ;
+%type<TEXT> MK     RM       F       M  UM  REP  EXE ;
 %type<TEXT> UN_FT;
-%type<TEXT> UBYTE  FOPTION ;
+%type<TEXT> UBYTE  FOPTION  STR_VAL REP_TYPE;
 
 
 %start S
@@ -95,9 +95,14 @@ S  :   S Line                                                                   
   ;
 
 
-Line :  Mkdisk MK                                                                 { printf("make disk command ");   }
-     |  Rmdisk RM                                                                 { printf("remove disk command "); }
-     |  exit_command                                                              { exit(EXIT_SUCCESS);             }
+Line :  Mkdisk  MK                                                                 { printf("make disk command ");        }
+     |  Rmdisk  RM                                                                 { printf("remove disk command ");      }
+     |  Fdisk   RM                                                                 { printf("administer disk command ");  }
+     |  Mount   M                                                                  { printf("mount   disk command ");     }
+     |  Unmount UM                                                                 { printf("unmount disk command ");     }
+     |  Report  REP                                                                { printf("report  disk command ");     }
+     |  Execute RM                                                                 { printf("execute disk command ");     }                    
+     |  exit_command                                                               { exit(EXIT_SUCCESS);                  }
 ;
 
 MK : Size '=' Value_Int     Path '=' Value_String                                 {printf(" Size and Path ");  }
@@ -107,9 +112,26 @@ MK : Size '=' Value_Int     Path '=' Value_String                               
    | Size '=' Value_Int     Path '=' Value_String    UN_FT                        {printf(" Unit Size  Path"); }
 ;
 
-RM : Path '=' Value_String                                                          {printf(" Path ");}
+RM : Path '=' Value_String                                                        {printf(" Path ");}
+
+F :  Size '=' Value_Int     Path '=' Value_String    Name '=' STR_VAL             {printf(" Size and Path ");  }
+   | Path '=' Value_String  Size '=' Value_Int                                    {printf(" Path and Size");   }
+
+;
+
+M :  Path '=' Value_String  Name '=' Id                                           { printf(" Path and Name ");} 
+   | Name '=' Id            Path '=' Value_String                                 { printf(" Name and Path ");}
+;
+
+UM : Identify '=' Id                                                              { printf(" Identify ");     }
+;
+
+REP : Name    '=' Id  Path '=' Value_String   Identify '=' REP_TYPE               { printf(" Name , Path , Id ");     } 
+;
 
 
+EXE : Path    '=' Value_String                                                    { printf(" Path ");  }
+;
 
 
 UN_FT : Unit '=' UBYTE      Fit '=' FOPTION                                         { printf(" U/F ") ;}
@@ -120,6 +142,11 @@ UN_FT : Unit '=' UBYTE      Fit '=' FOPTION                                     
 
 
 
+STR_VAL : Value_String 
+        | Id
+        
+;
+
 UBYTE : Kbytes
       | Mbytes
 ;
@@ -129,6 +156,10 @@ FOPTION : Bf
         | Wf
 ;
 
+
+REP_TYPE : Mbr                                                                { printf(" Mbr  "); }
+         | Disc                                                               { printf(" Disc "); } 
+;         
 
 %%
 
