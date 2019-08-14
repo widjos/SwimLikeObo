@@ -54,6 +54,7 @@ char TEXT2 [256];
 %token<TEXT>   Unit;
 %token<TEXT>   Kbytes;
 %token<TEXT>   Mbytes;
+%token<TEXT>   Bytes;
              
 %token<TEXT>   Path;
 %token<TEXT>   Type;
@@ -71,7 +72,7 @@ char TEXT2 [256];
 %token<TEXT>   Ebr;
 %token<TEXT>   Disc;
 %token<TEXT>   Identify;
-
+%token<TEXT>   Url;
 
 
 
@@ -82,15 +83,16 @@ char TEXT2 [256];
 %type<TEXT> S      Line ;
 %type<TEXT> MK     RM       F       M  UM  REP  EXE ;
 %type<TEXT> UN_FT;
-%type<TEXT> UBYTE  FOPTION  STR_VAL REP_TYPE;
+%type<TEXT> UBYTE  FOPTION  STR_VAL REP_TYPE   P_OPTION  ;
+%type<TEXT>  DTYPE  TPARTITION ;
 
 
 %start S
 
 %%
 
-S  :   S Line                                                                     {printf("recursivo lineas ");}
-   |   Line                                                                       {printf("finalizado ");}
+S  :   S Line                                                                     {;}
+   |   Line                                                                       {;}
 
   ;
 
@@ -102,35 +104,61 @@ Line :  Mkdisk  MK                                                              
      |  Unmount UM                                                                 { printf("unmount disk command ");     }
      |  Report  REP                                                                { printf("report  disk command ");     }
      |  Execute RM                                                                 { printf("execute disk command ");     }                    
-     |  exit_command                                                               { exit(EXIT_SUCCESS);                  }
+     |  exit_command                                                               { printf("Saliendo del gestor de discos \n");   exit(EXIT_SUCCESS);                  }
+     |  error                                                                      {   }
 ;
 
-MK : Size '=' Value_Int     Path '=' Value_String                                 {printf(" Size and Path ");  }
-   | Path '=' Value_String  Size '=' Value_Int                                    {printf(" Path and Size");   }
-   | Size '=' Value_Int     UN_FT                    Path '=' Value_String        {printf(" Size Unit Path");  }
-   | UN_FT                  Size '=' Value_Int       Path '=' Value_String        {printf(" Unit Size  Path"); }
+MK : Size '=' Value_Int     Path '=' P_OPTION                                     {printf(" Size and Path ");  }
+   | Path '=' P_OPTION      Size '=' Value_Int                                    {printf(" Path and Size");   }
+   | Size '=' Value_Int     UN_FT                    Path '=' P_OPTION            {printf(" Size Unit Path");  }
+   | UN_FT                  Size '=' Value_Int       Path '=' P_OPTION            {printf(" Unit Size  Path"); }
    | Size '=' Value_Int     Path '=' Value_String    UN_FT                        {printf(" Unit Size  Path"); }
-;
-
-RM : Path '=' Value_String                                                        {printf(" Path ");}
-
-F :  Size '=' Value_Int     Path '=' Value_String    Name '=' STR_VAL             {printf(" Size and Path ");  }
-   | Path '=' Value_String  Size '=' Value_Int                                    {printf(" Path and Size");   }
+   | Path '=' P_OPTION      UN_FT                    Size '=' Value_Int           {printf(" Size Unit Path");  }
+   | UN_FT                  Path '=' P_OPTION        Size '=' Value_Int           {printf(" Unit Size  Path"); }
+   | Path '=' P_OPTION      Size '=' Value_Int        UN_FT                       {printf(" Unit Size  Path"); }
 
 ;
 
-M :  Path '=' Value_String  Name '=' Id                                           { printf(" Path and Name ");} 
-   | Name '=' Id            Path '=' Value_String                                 { printf(" Name and Path ");}
+RM : Path '=' P_OPTION                                                            {printf(" Path ");}
+
+F :  F  Size    '=' Value_Int                                                     {;}
+   | F  Unit    '=' UBYTE                                                         {;}
+   | F  Path    '=' P_OPTION                                                      {;}
+   | F  Type    '=' TPARTITION                                                    {;}
+   | F  Fit     '=' FOPTION                                                       {;}
+   | F  Delete  '=' DTYPE                                                         {;}
+   | F  Name    '=' Id                                                            {;}
+   | F  Add     '=' Value_Int                                                     {;}  
+   |    Size    '=' Value_Int                                                     {;}  
+   |    Unit    '=' UBYTE                                                         {;}
+   |    Path    '=' P_OPTION                                                      {;}
+   |    Type    '=' TPARTITION                                                    {;}
+   |    Fit     '=' FOPTION                                                       {;}
+   |    Delete  '=' DTYPE                                                         {;}  
+   |    Name    '=' Id                                                            {;}
+   |    Add     '=' Value_Int                                                     {;}      
 ;
 
-UM : Identify '=' Id                                                              { printf(" Identify ");     }
+
+
 ;
 
-REP : Name    '=' Id  Path '=' Value_String   Identify '=' REP_TYPE               { printf(" Name , Path , Id ");     } 
+M :  Path '=' P_OPTION      Name '=' Id                                             { printf(" Path and Name ");} 
+   | Name '=' Id            Path '=' P_OPTION                                       { printf(" Name and Path ");}
+   | error
+;
+
+UM : Identify '=' Id                                                                { printf(" Identify ");     }
+    | error 
+;
+
+REP : Identify   '=' Id  Path '=' P_OPTION  Name '=' REP_TYPE                       { printf(" Name , Path , Id ");     } 
+    | error       
 ;
 
 
-EXE : Path    '=' Value_String                                                    { printf(" Path ");  }
+EXE : Path    '=' P_OPTION                                                          { printf(" Path ");  }
+    | error
 ;
 
 
@@ -142,24 +170,43 @@ UN_FT : Unit '=' UBYTE      Fit '=' FOPTION                                     
 
 
 
-STR_VAL : Value_String 
-        | Id
+STR_VAL : Value_String                                                               {;}
+        | Id                                                                         {;}
+        | error                                                                      {;}   
         
 ;
 
-UBYTE : Kbytes
-      | Mbytes
+UBYTE : Kbytes                                                                       {;}
+      | Mbytes                                                                       {;}
+      | Bytes                                                                        {;}
 ;
 
-FOPTION : Bf 
-        | Ff
-        | Wf
+FOPTION : Bf                                                                         {;}
+        | Ff                                                                         {;}
+        | Wf                                                                         {;}
+        | error                                                                      {;} 
 ;
 
 
 REP_TYPE : Mbr                                                                { printf(" Mbr  "); }
          | Disc                                                               { printf(" Disc "); } 
+         | error                                                              {}    
 ;         
+
+
+P_OPTION : Value_String                                                       {}
+         | Url                                                                {}    
+ ; 
+
+DTYPE    : Fast                                                               {}
+         | Full                                                               {}
+
+ ;
+
+TPARTITION : Primary                                                          {}
+           | Extended                                                         {}  
+           | Logic                                                            {}
+;
 
 %%
 
@@ -167,6 +214,7 @@ REP_TYPE : Mbr                                                                { 
 
 main(void){
 
+printf("Welcome to the diskParter \n");
    if(yyparse()== 0)
        printf("hola");
    return 0;

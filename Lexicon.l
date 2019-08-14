@@ -29,7 +29,8 @@ decimal  ([0-9])+"."([0-9])+
 caracter "\'"("\\")?({letra}|{numero})"\'"
 id 		 ({letra})({letra}|{numero}|"_")*
 cadena 	 "\""[^"\""]*"\""
-
+file_type ("mbr"|"disk"|"sh")
+url       (("/")({id}))+"."({file_type})
 
 
 
@@ -46,7 +47,7 @@ INITIAL
 {decimal}                            {  strcpy(yylval.TEXT, yytext);    return Value_Double;     }
 {caracter}                           {  strcpy(yylval.TEXT, yytext);    return Value_Char;       }
 {cadena}                             {  strcpy(yylval.TEXT, yytext);    return Value_String;     }
-
+{url}                                {  strcpy(yylval.TEXT, yytext);    return Url;              }
 
 
 "mkdisk"                             {   strcpy(yylval.TEXT, yytext);   return Mkdisk;     }
@@ -62,6 +63,7 @@ INITIAL
 "Ff"                                 {   strcpy(yylval.TEXT, yytext);   return Ff;         }
 "Wf"                                 {   strcpy(yylval.TEXT, yytext);   return Wf;         }
 "-Unit"                              {   strcpy(yylval.TEXT, yytext);   return Unit;       }
+"B"                                  {   strcpy(yylval.TEXT, yytext);   return Bytes;      }
 "K"                                  {   strcpy(yylval.TEXT, yytext);   return Kbytes;     }
 "M"                                  {   strcpy(yylval.TEXT, yytext);   return Mbytes;     }
 "-Path"                              {   strcpy(yylval.TEXT, yytext);   return Path;       }
@@ -78,7 +80,7 @@ INITIAL
 "Ebr"                                {   strcpy(yylval.TEXT, yytext);   return Ebr;        }
 "Disc"                               {   strcpy(yylval.TEXT, yytext);   return Disc;       }
 "-Id"                                {   strcpy(yylval.TEXT, yytext);   return Identify;   }
-"exit"                               {   strcpy(yylval.TEXT, yytext);printf("saliendo del sistemas"); return exit_command; }
+"exit"                               {   strcpy(yylval.TEXT, yytext);   return exit_command; }
 
 =                                    { return yytext[0]; }
 
@@ -93,8 +95,8 @@ INITIAL
 }
 
 
-<COM>"\n"                              {  BEGIN INITIAL; };
-<COM>.;
+<COM>"\n"                              { BEGIN INITIAL; };
+<COM>.   {};
 
 
 %%

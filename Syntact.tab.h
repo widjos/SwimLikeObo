@@ -70,20 +70,22 @@ extern int yydebug;
     Unit = 276,
     Kbytes = 277,
     Mbytes = 278,
-    Path = 279,
-    Type = 280,
-    Primary = 281,
-    Extended = 282,
-    Logic = 283,
-    Delete = 284,
-    Fast = 285,
-    Full = 286,
-    Name = 287,
-    Add = 288,
-    Mbr = 289,
-    Ebr = 290,
-    Disc = 291,
-    Identify = 292
+    Bytes = 279,
+    Path = 280,
+    Type = 281,
+    Primary = 282,
+    Extended = 283,
+    Logic = 284,
+    Delete = 285,
+    Fast = 286,
+    Full = 287,
+    Name = 288,
+    Add = 289,
+    Mbr = 290,
+    Ebr = 291,
+    Disc = 292,
+    Identify = 293,
+    Url = 294
   };
 #endif
 
@@ -99,7 +101,7 @@ char TEXT [256];
 char TEXT2 [256];
 //class NodoAST *nodito;
 
-#line 103 "Syntact.tab.h" /* yacc.c:1921  */
+#line 105 "Syntact.tab.h" /* yacc.c:1921  */
 };
 
 typedef union YYSTYPE YYSTYPE;
