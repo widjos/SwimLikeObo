@@ -1,4 +1,4 @@
-#ELimina disco4.disk
+#ELimina disco4.disk holaa
 rmdisk -path="/home/Mia/disco1.disk"
 
 #Crea un disco de 3000 Kb en la carpeta home
