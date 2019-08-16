@@ -108,14 +108,14 @@ Line :  Mkdisk  MK                                                              
      |  error                                                                      {   }
 ;
 
-MK : Size '=' Value_Int     Path '=' P_OPTION                                     {printf(" Size and Path ");  }
-   | Path '=' P_OPTION      Size '=' Value_Int                                    {printf(" Path and Size");   }
-   | Size '=' Value_Int     UN_FT                    Path '=' P_OPTION            {printf(" Size Unit Path");  }
-   | UN_FT                  Size '=' Value_Int       Path '=' P_OPTION            {printf(" Unit Size  Path"); }
-   | Size '=' Value_Int     Path '=' Value_String    UN_FT                        {printf(" Unit Size  Path"); }
-   | Path '=' P_OPTION      UN_FT                    Size '=' Value_Int           {printf(" Size Unit Path");  }
-   | UN_FT                  Path '=' P_OPTION        Size '=' Value_Int           {printf(" Unit Size  Path"); }
-   | Path '=' P_OPTION      Size '=' Value_Int        UN_FT                       {printf(" Unit Size  Path"); }
+MK :  MK  Size   '=' Value_Int                                                    { }
+   |  MK  Path   '=' P_OPTION                                                     {printf(" Size and Path ");  }
+   |  MK  Unit   '=' UBYTE                                                        {printf(" Path and Size");   }
+   |  MK  Fit    '=' FOPTION                                                      {printf(" Size Unit Path");  }
+   |  Size       '=' Value_Int                                                    { }
+   |  Path       '=' P_OPTION                                                     {printf(" Size and Path ");  }
+   |  Unit       '=' UBYTE                                                        {printf(" Path and Size");   }
+   |  Fit        '=' FOPTION                                                      {printf(" Size Unit Path");  }
 
 ;
 
@@ -149,16 +149,16 @@ M :  Path '=' P_OPTION      Name '=' Id                                         
 ;
 
 UM : Identify '=' Id                                                                { printf(" Identify ");     }
-    | error 
+    | error                                                                         {;}
 ;
 
 REP : Identify   '=' Id  Path '=' P_OPTION  Name '=' REP_TYPE                       { printf(" Name , Path , Id ");     } 
-    | error       
+    | error                                                                         {;}
 ;
 
 
 EXE : Path    '=' P_OPTION                                                          { printf(" Path ");  }
-    | error
+    | error                                                                         {;}
 ;
 
 
@@ -209,6 +209,14 @@ TPARTITION : Primary                                                          {}
 ;
 
 %%
+
+
+ struct  disk {
+    int size;
+    char path[300];
+    char unit;
+    char fit[2];
+};
 
 
 

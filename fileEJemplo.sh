@@ -2,7 +2,7 @@
 rmdisk -path="/home/Mia/disco1.disk"
 
 #Crea un disco de 3000 Kb en la carpeta home
-Mkdisk -Size=3000 -unit=K -path="/home/user As/Disco1.disk"
+Mkdisk -Size=3000 -unit=K -path=/home/userAs/Disco1.disk
 
 
 #No es necesario utilizar comillas para la ruta en este caso ya que la ruta no tiene ningún espacio en blanco
