@@ -90,14 +90,15 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "Syntact.y" /* yacc.c:1909  */
+#line 30 "Syntact.y" /* yacc.c:1909  */
 
 //se especifican los tipo de valores para los no terminales y lo terminales
 char TEXT [256];
 char TEXT2 [256];
+
 //class NodoAST *nodito;
 
-#line 101 "Syntact.tab.h" /* yacc.c:1909  */
+#line 102 "Syntact.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

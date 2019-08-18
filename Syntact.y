@@ -11,7 +11,17 @@ extern int yylineno;    //linea actual donde se encuentra el parser (analisis le
 extern int columna;     //columna actual donde se encuentra el parser (analisis lexico) lo maneja BISON
 extern char *yytext;    //lexema actual donde esta el parser (analisis lexico) lo maneja BISON
 int yylex (void);
-  void yyerror (char  *);
+void yyerror (char  *);
+
+struct  disk {
+    int size;
+    char *path;
+    char unit;
+    char *fit;
+};
+
+
+struct disk tempDisk; 
 
 
 %}
@@ -21,6 +31,7 @@ int yylex (void);
 //se especifican los tipo de valores para los no terminales y lo terminales
 char TEXT [256];
 char TEXT2 [256];
+
 //class NodoAST *nodito;
 }
 
@@ -83,43 +94,47 @@ char TEXT2 [256];
 %type<TEXT> S      Line ;
 %type<TEXT> MK     RM       F       M  UM  REP  EXE ;
 %type<TEXT> UN_FT;
-%type<TEXT> UBYTE  FOPTION  STR_VAL REP_TYPE   P_OPTION  ;
+%type<TEXT> UBYTE  FOPTION  STR_VAL REP_TYPE  ;
 %type<TEXT>  DTYPE  TPARTITION ;
+%type<TEXT> P_OPTION  COMMAND;
 
 
 %start S
 
 %%
 
-S  :   S Line                                                                     {;}
-   |   Line                                                                       {;}
+ S : COMMAND                                                                        {printf("fin");}
+     ;
 
+COMMAND  :   COMMAND Line                                                               {printf("Recursivo");}
+         |    Line                                                                  {printf("Prueba");}
   ;
 
 
-Line :  Mkdisk  MK                                                                 { printf("make disk command ");        }
+Line :  Mkdisk  MK                                                                 { checkMakeDisk(tempDisk);  tempDisk.size=0; tempDisk.path = NULL; tempDisk.unit = NULL; tempDisk.fit = NULL;  }
      |  Rmdisk  RM                                                                 { printf("remove disk command ");      }
-     |  Fdisk   RM                                                                 { printf("administer disk command ");  }
+     |  Fdisk   F                                                                  { printf("administer disk command ");  }
      |  Mount   M                                                                  { printf("mount   disk command ");     }
      |  Unmount UM                                                                 { printf("unmount disk command ");     }
      |  Report  REP                                                                { printf("report  disk command ");     }
-     |  Execute RM                                                                 { printf("execute disk command ");     }                    
+     |  Execute EXE                                                                { printf("execute disk command ");     }
      |  exit_command                                                               { printf("Saliendo del gestor de discos \n");   exit(EXIT_SUCCESS);                  }
-     |  error                                                                      {   }
+     |  error                                                                      { }
 ;
 
-MK :  MK  Size   '=' Value_Int                                                    { }
-   |  MK  Path   '=' P_OPTION                                                     {printf(" Size and Path ");  }
-   |  MK  Unit   '=' UBYTE                                                        {printf(" Path and Size");   }
-   |  MK  Fit    '=' FOPTION                                                      {printf(" Size Unit Path");  }
-   |  Size       '=' Value_Int                                                    { }
-   |  Path       '=' P_OPTION                                                     {printf(" Size and Path ");  }
-   |  Unit       '=' UBYTE                                                        {printf(" Path and Size");   }
-   |  Fit        '=' FOPTION                                                      {printf(" Size Unit Path");  }
+MK :  Size   '=' Value_Int                                                        { tempDisk.size = atoi($3); printf("size1");}
+   |  Path   '=' P_OPTION                                                         { tempDisk.path = $3;       printf("path1");}
+   |  Unit   '=' UBYTE                                                            { tempDisk.unit = $3;       printf("UNit1");}
+   |  Fit    '=' FOPTION                                                          { tempDisk.fit =  $3;       printf("Fit1");}
+   |  MK   Size       '=' Value_Int                                               { tempDisk.size = atoi($4); printf("size2");}
+   |  MK   Path       '=' P_OPTION                                                { tempDisk.path = $4;       printf("path2");}
+   |  MK   Unit       '=' UBYTE                                                   { tempDisk.unit = $4;       printf("unit2");}
+   |  MK   Fit        '=' FOPTION                                                 { tempDisk.fit =  $4;       printf("Fit2");}
 
 ;
 
 RM : Path '=' P_OPTION                                                            {printf(" Path ");}
+;
 
 F :  F  Size    '=' Value_Int                                                     {;}
    | F  Unit    '=' UBYTE                                                         {;}
@@ -141,7 +156,7 @@ F :  F  Size    '=' Value_Int                                                   
 
 
 
-;
+
 
 M :  Path '=' P_OPTION      Name '=' Id                                             { printf(" Path and Name ");} 
    | Name '=' Id            Path '=' P_OPTION                                       { printf(" Name and Path ");}
@@ -176,14 +191,14 @@ STR_VAL : Value_String                                                          
         
 ;
 
-UBYTE : Kbytes                                                                       {;}
-      | Mbytes                                                                       {;}
-      | Bytes                                                                        {;}
+UBYTE : Kbytes                                                                       {strcpy($$,$1);}
+      | Mbytes                                                                       {strcpy($$,$1);}
+      | Bytes                                                                        {strcpy($$,$1);}
 ;
 
-FOPTION : Bf                                                                         {;}
-        | Ff                                                                         {;}
-        | Wf                                                                         {;}
+FOPTION : Bf                                                                         {strcpy($$,$1);}
+        | Ff                                                                         {strcpy($$,$1);}
+        | Wf                                                                         {strcpy($$,$1);}
         | error                                                                      {;} 
 ;
 
@@ -194,38 +209,35 @@ REP_TYPE : Mbr                                                                { 
 ;         
 
 
-P_OPTION : Value_String                                                       {}
-         | Url                                                                {}    
+P_OPTION : Value_String                                                       { strcpy($$,$1);}
+         | Url                                                                { strcpy($$,$1); }    
  ; 
 
-DTYPE    : Fast                                                               {}
-         | Full                                                               {}
+DTYPE    : Fast                                                               { printf(" Fast");}
+         | Full                                                               { printf( "Full"); }
 
  ;
 
-TPARTITION : Primary                                                          {}
-           | Extended                                                         {}  
-           | Logic                                                            {}
+TPARTITION : Primary                                                          { printf(" Primary");}
+           | Extended                                                         { printf(" Extebded");}  
+           | Logic                                                            { printf(" Logic"); }
 ;
 
 %%
 
 
- struct  disk {
-    int size;
-    char path[300];
-    char unit;
-    char fit[2];
-};
+ 
+FILE *fp;
+char direccion[300];
+int c;
 
 
 
 main(void){
 
-printf("Welcome to the diskParter \n");
-   if(yyparse()== 0)
-       printf("hola");
-   return 0;
+  printf("Welcome to the diskParter \n");
+  
+   return yyparse();
 
 
 }
@@ -235,3 +247,39 @@ void yyerror( char* mens)
     fprintf(stderr , mens,  "%s\n"  );
 }
 
+
+void  createDisk(struct disk diskInput ){
+        fp = fopen( diskInput.path,"w");
+
+
+}
+
+void cleanStr( char input[]){
+
+int index ;
+
+    for(index = 0 ; index < sizeof(input) ; index++){
+        c = input[index];
+        if(c != '\"'){
+            direccion[index] = c;
+        }
+    }
+
+ printf(direccion);
+
+}
+
+
+void checkMakeDisk(struct disk input){
+
+    if(input.path == NULL){
+        printf("Path obligatorio ");
+    }
+    else if( (input.size == NULL ) || (input.size < 1)){
+        printf("Definir size del disco obligatorio");
+    }
+    else {
+        printf("the path is: ","%s" , input.path); 
+    }
+
+}

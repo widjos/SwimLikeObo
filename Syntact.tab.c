@@ -75,11 +75,21 @@ extern int yylineno;    //linea actual donde se encuentra el parser (analisis le
 extern int columna;     //columna actual donde se encuentra el parser (analisis lexico) lo maneja BISON
 extern char *yytext;    //lexema actual donde esta el parser (analisis lexico) lo maneja BISON
 int yylex (void);
-  void yyerror (char  *);
+void yyerror (char  *);
+
+struct  disk {
+    int size;
+    char *path;
+    char unit;
+    char *fit;
+};
+
+
+struct disk tempDisk; 
 
 
 
-#line 83 "Syntact.tab.c" /* yacc.c:339  */
+#line 93 "Syntact.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -159,14 +169,15 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "Syntact.y" /* yacc.c:355  */
+#line 30 "Syntact.y" /* yacc.c:355  */
 
 //se especifican los tipo de valores para los no terminales y lo terminales
 char TEXT [256];
 char TEXT2 [256];
+
 //class NodoAST *nodito;
 
-#line 170 "Syntact.tab.c" /* yacc.c:355  */
+#line 181 "Syntact.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -197,7 +208,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 201 "Syntact.tab.c" /* yacc.c:358  */
+#line 212 "Syntact.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -439,18 +450,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  31
+#define YYFINAL  42
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   85
+#define YYLAST   138
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  41
+#define YYNTOKENS  42
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  12
+#define YYNNTS  17
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  40
+#define YYNRULES  64
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  87
+#define YYNSTATES  146
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -465,12 +476,12 @@ union yyalloc
 static const yytype_uint8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      40,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    40,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,    41,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -500,11 +511,13 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    94,    94,    95,   100,   101,   102,   103,   104,   105,
-     106,   107,   108,   111,   112,   113,   114,   115,   116,   117,
-     118,   122,   146,   147,   148,   151,   152,   155,   156,   179,
-     180,   181,   184,   185,   186,   187,   191,   192,   193,   197,
-     198
+       0,   106,   106,   109,   110,   114,   115,   116,   117,   118,
+     119,   120,   121,   122,   125,   126,   127,   128,   129,   130,
+     131,   132,   136,   139,   140,   141,   142,   143,   144,   145,
+     146,   147,   148,   149,   150,   151,   152,   153,   154,   161,
+     162,   163,   166,   167,   170,   171,   175,   176,   194,   195,
+     196,   199,   200,   201,   202,   206,   207,   208,   212,   213,
+     216,   217,   221,   222,   223
 };
 #endif
 
@@ -518,8 +531,9 @@ static const char *const yytname[] =
   "Fdisk", "Mount", "Unmount", "Report", "Execute", "Size", "Fit", "Bf",
   "Ff", "Wf", "Unit", "Kbytes", "Mbytes", "Bytes", "Path", "Type",
   "Primary", "Extended", "Logic", "Delete", "Fast", "Full", "Name", "Add",
-  "Mbr", "Ebr", "Disc", "Identify", "Url", "'='", "$accept", "S", "Line",
-  "MK", "RM", "M", "UM", "REP", "UBYTE", "FOPTION", "REP_TYPE", "P_OPTION", YY_NULLPTR
+  "Mbr", "Ebr", "Disc", "Identify", "Url", "'\\n'", "'='", "$accept", "S",
+  "COMMAND", "Line", "MK", "RM", "F", "M", "UM", "REP", "EXE", "UBYTE",
+  "FOPTION", "REP_TYPE", "P_OPTION", "DTYPE", "TPARTITION", YY_NULLPTR
 };
 #endif
 
@@ -532,16 +546,16 @@ static const yytype_uint16 yytoknum[] =
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-      61
+      10,    61
 };
 # endif
 
-#define YYPACT_NINF -38
+#define YYPACT_NINF -56
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-38)))
+  (!!((Yystate) == (-56)))
 
-#define YYTABLE_NINF -1
+#define YYTABLE_NINF -3
 
 #define yytable_value_is_error(Yytable_value) \
   0
@@ -550,15 +564,21 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      43,   -38,   -38,    -8,   -19,   -19,     9,    -1,     0,   -19,
-      18,   -38,   -29,   -26,   -25,   -17,    44,   -16,   -38,   -38,
-     -38,     8,    10,   -38,   -38,    19,   -38,   -38,    22,   -38,
-     -38,   -38,   -38,    33,     2,    23,    -4,    24,    26,    27,
-      28,    -4,    -4,    42,    56,    63,   -38,   -38,   -38,   -38,
-     -38,   -38,   -38,   -38,   -38,   -38,   -38,   -38,   -38,    68,
-       2,    23,    -4,   -38,    39,    48,   -38,    49,   -38,   -38,
-     -38,   -38,    35,    36,    37,    71,    -4,    -4,   -38,   -38,
-      46,    40,     6,   -38,   -38,   -38,   -38
+      94,   -56,   -56,    -1,   -19,    33,     7,     1,     4,    11,
+      13,    79,   -56,   -22,    10,    16,    21,    -7,    23,   -56,
+      30,    31,    32,    34,    35,    40,    43,    45,    44,   -56,
+      55,    56,   -56,   -56,    57,   -56,   -56,    58,   -56,   -56,
+      59,   -56,   -56,   -56,    49,    27,     3,     5,    60,    69,
+      70,    71,   -56,     5,    65,    27,     3,     5,     2,    -9,
+      41,    82,    72,    73,    74,    75,    76,    77,    78,    80,
+       5,   113,   115,   116,     5,   -56,   -56,   -56,   -56,   -56,
+     -56,   -56,   -56,   -56,   -56,   -56,   -56,   -56,   121,    27,
+       3,     5,   -56,   -56,   -56,   -56,   -56,   -56,   -56,   -56,
+     -56,   -56,   -56,   -56,   -56,   -56,   122,    27,     3,     5,
+       2,    -9,   119,   124,    95,     9,   -56,   104,   -56,   -56,
+     -56,   -56,   -56,   -56,   -56,   -56,   -56,   -56,   -56,   -56,
+     -56,    89,    90,    91,   126,     5,     5,   -56,   -56,   101,
+      96,     6,   -56,   -56,   -56,   -56
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -566,58 +586,74 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,    12,    11,     0,     0,     0,     0,     0,     0,     0,
-       0,     3,     0,     0,     0,     0,     4,     0,     5,     6,
-      24,     0,     0,     7,    26,     0,     8,    28,     0,     9,
-      10,     1,     2,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    17,    35,    32,    33,
-      34,    20,    29,    30,    31,    19,    39,    40,    18,     0,
-       0,     0,     0,    21,     0,     0,    25,     0,    13,    16,
-      15,    14,     0,     0,     0,     0,     0,     0,    22,    23,
-       0,     0,     0,    38,    36,    37,    27
+       0,    13,    12,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     4,     0,     0,     0,     0,     0,     0,     6,
+       0,     0,     0,     0,     0,     0,     0,     0,     7,    41,
+       0,     0,     8,    43,     0,     9,    45,     0,    10,    47,
+       0,    11,     1,     3,     0,     0,     0,     0,     0,     0,
+       0,     0,     5,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    14,    54,    51,    52,    53,
+      17,    48,    49,    50,    16,    58,    59,    15,     0,     0,
+       0,     0,    22,    31,    35,    32,    33,    62,    63,    64,
+      34,    60,    61,    36,    37,    38,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    42,     0,    46,    18,
+      21,    20,    19,    23,    27,    24,    25,    26,    28,    29,
+      30,     0,     0,     0,     0,     0,     0,    39,    40,     0,
+       0,     0,    57,    55,    56,    44
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -38,   -38,    72,   -38,     7,   -38,   -38,   -38,    20,    25,
-     -38,   -37
+     -56,   -56,   -56,   125,   -56,   -56,   -56,   -56,   -56,   -56,
+     -56,   -55,   -52,   -56,   -53,    24,    28
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int8 yydefgoto[] =
+static const yytype_int16 yydefgoto[] =
 {
-      -1,    10,    11,    16,    18,    23,    26,    29,    55,    51,
-      86,    58
+      -1,    10,    11,    12,    17,    19,    28,    32,    35,    38,
+      41,    84,    80,   145,    87,   103,   100
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule whose
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_uint8 yytable[] =
+static const yytype_int16 yytable[] =
 {
-      24,    27,    56,    47,    63,    64,    17,    83,    12,    13,
-      20,    33,    19,    14,    34,    35,    30,    15,    31,     1,
-      48,    49,    50,    36,    41,    71,     2,     3,     4,     5,
-       6,     7,     8,     9,    21,    57,    46,    25,    28,    79,
-      80,    84,    22,    85,     1,    52,    53,    54,    42,    65,
-      43,     2,     3,     4,     5,     6,     7,     8,     9,    44,
-      37,    38,    45,    66,    59,    39,    60,    61,    62,    40,
-      67,    68,    72,    73,    74,    75,    76,    77,    78,    81,
-      82,    70,    32,     0,     0,    69
+      92,    95,    33,    94,    96,    36,    18,   142,    29,    48,
+      49,    85,    39,    42,    50,    13,    14,   114,    51,    44,
+      15,   118,   101,   102,    16,    81,    82,    83,    76,    97,
+      98,    99,    30,    52,   132,   121,    40,   120,   122,    34,
+      31,   143,    37,   144,    86,    77,    78,    79,   104,    20,
+      21,    45,    75,   125,    22,   124,   126,    46,    23,    24,
+      62,    63,    47,    25,    53,    64,    26,    27,    93,    65,
+      66,    54,    55,    56,    67,    57,    58,    68,    69,    -2,
+       1,    59,   138,   139,    60,   105,    61,     2,     3,     4,
+       5,     6,     7,     8,     9,     1,    70,    71,    72,    73,
+      74,    88,     2,     3,     4,     5,     6,     7,     8,     9,
+      89,    90,    91,   106,   107,   108,   109,   110,   111,   112,
+     115,   113,   116,   117,   119,   123,   129,   130,   131,   133,
+     134,   135,   136,   137,   140,   128,    43,   141,   127
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_uint8 yycheck[] =
 {
-       1,     1,     6,     1,    41,    42,    25,     1,    16,    17,
-       1,    40,     5,    21,    40,    40,     9,    25,     0,     1,
-      18,    19,    20,    40,    40,    62,     8,     9,    10,    11,
-      12,    13,    14,    15,    25,    39,     3,    38,    38,    76,
-      77,    35,    33,    37,     1,    22,    23,    24,    40,     7,
-      40,     8,     9,    10,    11,    12,    13,    14,    15,    40,
-      16,    17,    40,     7,    40,    21,    40,    40,    40,    25,
-       7,     3,    33,    25,    25,    40,    40,    40,     7,    33,
-      40,    61,    10,    -1,    -1,    60
+      53,    56,     1,    55,    57,     1,    25,     1,     1,    16,
+      17,     6,     1,     0,    21,    16,    17,    70,    25,    41,
+      21,    74,    31,    32,    25,    22,    23,    24,     1,    27,
+      28,    29,    25,    40,    25,    90,    25,    89,    91,    38,
+      33,    35,    38,    37,    39,    18,    19,    20,     7,    16,
+      17,    41,     3,   108,    21,   107,   109,    41,    25,    26,
+      16,    17,    41,    30,    41,    21,    33,    34,     3,    25,
+      26,    41,    41,    41,    30,    41,    41,    33,    34,     0,
+       1,    41,   135,   136,    41,     3,    41,     8,     9,    10,
+      11,    12,    13,    14,    15,     1,    41,    41,    41,    41,
+      41,    41,     8,     9,    10,    11,    12,    13,    14,    15,
+      41,    41,    41,    41,    41,    41,    41,    41,    41,    41,
+       7,    41,     7,     7,     3,     3,     7,     3,    33,    25,
+      41,    41,    41,     7,    33,   111,    11,    41,   110
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -625,34 +661,44 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,     1,     8,     9,    10,    11,    12,    13,    14,    15,
-      42,    43,    16,    17,    21,    25,    44,    25,    45,    45,
-       1,    25,    33,    46,     1,    38,    47,     1,    38,    48,
-      45,     0,    43,    40,    40,    40,    40,    16,    17,    21,
-      25,    40,    40,    40,    40,    40,     3,     1,    18,    19,
-      20,    50,    22,    23,    24,    49,     6,    39,    52,    40,
-      40,    40,    40,    52,    52,     7,     7,     7,     3,    50,
-      49,    52,    33,    25,    25,    40,    40,    40,     7,    52,
-      52,    33,    40,     1,    35,    37,    51
+      43,    44,    45,    16,    17,    21,    25,    46,    25,    47,
+      16,    17,    21,    25,    26,    30,    33,    34,    48,     1,
+      25,    33,    49,     1,    38,    50,     1,    38,    51,     1,
+      25,    52,     0,    45,    41,    41,    41,    41,    16,    17,
+      21,    25,    40,    41,    41,    41,    41,    41,    41,    41,
+      41,    41,    16,    17,    21,    25,    26,    30,    33,    34,
+      41,    41,    41,    41,    41,     3,     1,    18,    19,    20,
+      54,    22,    23,    24,    53,     6,    39,    56,    41,    41,
+      41,    41,    56,     3,    54,    53,    56,    27,    28,    29,
+      58,    31,    32,    57,     7,     3,    41,    41,    41,    41,
+      41,    41,    41,    41,    56,     7,     7,     7,    56,     3,
+      54,    53,    56,     3,    54,    53,    56,    58,    57,     7,
+       3,    33,    25,    25,    41,    41,    41,     7,    56,    56,
+      33,    41,     1,    35,    37,    55
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    41,    42,    42,    43,    43,    43,    43,    43,    43,
-      43,    43,    43,    44,    44,    44,    44,    44,    44,    44,
-      44,    45,    46,    46,    46,    47,    47,    48,    48,    49,
-      49,    49,    50,    50,    50,    50,    51,    51,    51,    52,
-      52
+       0,    42,    43,    44,    44,    45,    45,    45,    45,    45,
+      45,    45,    45,    45,    46,    46,    46,    46,    46,    46,
+      46,    46,    47,    48,    48,    48,    48,    48,    48,    48,
+      48,    48,    48,    48,    48,    48,    48,    48,    48,    49,
+      49,    49,    50,    50,    51,    51,    52,    52,    53,    53,
+      53,    54,    54,    54,    54,    55,    55,    55,    56,    56,
+      57,    57,    58,    58,    58
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     2,     1,     2,     2,     2,     2,     2,     2,
-       2,     1,     1,     4,     4,     4,     4,     3,     3,     3,
-       3,     3,     6,     6,     1,     3,     1,     9,     1,     1,
+       0,     2,     1,     2,     1,     3,     2,     2,     2,     2,
+       2,     2,     1,     1,     3,     3,     3,     3,     4,     4,
+       4,     4,     3,     4,     4,     4,     4,     4,     4,     4,
+       4,     3,     3,     3,     3,     3,     3,     3,     3,     6,
+       6,     1,     3,     1,     9,     1,     3,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1
+       1,     1,     1,     1,     1
 };
 
 
@@ -1422,235 +1468,379 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 94 "Syntact.y" /* yacc.c:1646  */
-    {;}
-#line 1428 "Syntact.tab.c" /* yacc.c:1646  */
+#line 106 "Syntact.y" /* yacc.c:1646  */
+    {printf("fin");}
+#line 1474 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 95 "Syntact.y" /* yacc.c:1646  */
-    {;}
-#line 1434 "Syntact.tab.c" /* yacc.c:1646  */
+#line 109 "Syntact.y" /* yacc.c:1646  */
+    {printf("Recursivo");}
+#line 1480 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 100 "Syntact.y" /* yacc.c:1646  */
-    { printf("make disk command ");        }
-#line 1440 "Syntact.tab.c" /* yacc.c:1646  */
+#line 110 "Syntact.y" /* yacc.c:1646  */
+    {printf("Prueba");}
+#line 1486 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 101 "Syntact.y" /* yacc.c:1646  */
-    { printf("remove disk command ");      }
-#line 1446 "Syntact.tab.c" /* yacc.c:1646  */
+#line 114 "Syntact.y" /* yacc.c:1646  */
+    { checkMakeDisk(tempDisk);  tempDisk.size=0; tempDisk.path = NULL; tempDisk.unit = NULL; tempDisk.fit = NULL;  }
+#line 1492 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 102 "Syntact.y" /* yacc.c:1646  */
-    { printf("administer disk command ");  }
-#line 1452 "Syntact.tab.c" /* yacc.c:1646  */
+#line 115 "Syntact.y" /* yacc.c:1646  */
+    { printf("remove disk command ");      }
+#line 1498 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 103 "Syntact.y" /* yacc.c:1646  */
-    { printf("mount   disk command ");     }
-#line 1458 "Syntact.tab.c" /* yacc.c:1646  */
+#line 116 "Syntact.y" /* yacc.c:1646  */
+    { printf("administer disk command ");  }
+#line 1504 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 104 "Syntact.y" /* yacc.c:1646  */
-    { printf("unmount disk command ");     }
-#line 1464 "Syntact.tab.c" /* yacc.c:1646  */
+#line 117 "Syntact.y" /* yacc.c:1646  */
+    { printf("mount   disk command ");     }
+#line 1510 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 105 "Syntact.y" /* yacc.c:1646  */
-    { printf("report  disk command ");     }
-#line 1470 "Syntact.tab.c" /* yacc.c:1646  */
+#line 118 "Syntact.y" /* yacc.c:1646  */
+    { printf("unmount disk command ");     }
+#line 1516 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 106 "Syntact.y" /* yacc.c:1646  */
-    { printf("execute disk command ");     }
-#line 1476 "Syntact.tab.c" /* yacc.c:1646  */
+#line 119 "Syntact.y" /* yacc.c:1646  */
+    { printf("report  disk command ");     }
+#line 1522 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 107 "Syntact.y" /* yacc.c:1646  */
-    { printf("Saliendo del gestor de discos \n");   exit(EXIT_SUCCESS);                  }
-#line 1482 "Syntact.tab.c" /* yacc.c:1646  */
+#line 120 "Syntact.y" /* yacc.c:1646  */
+    { printf("execute disk command ");     }
+#line 1528 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 108 "Syntact.y" /* yacc.c:1646  */
-    {   }
-#line 1488 "Syntact.tab.c" /* yacc.c:1646  */
+#line 121 "Syntact.y" /* yacc.c:1646  */
+    { printf("Saliendo del gestor de discos \n");   exit(EXIT_SUCCESS);                  }
+#line 1534 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 111 "Syntact.y" /* yacc.c:1646  */
+#line 122 "Syntact.y" /* yacc.c:1646  */
     { }
-#line 1494 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1540 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 112 "Syntact.y" /* yacc.c:1646  */
-    {printf(" Size and Path ");  }
-#line 1500 "Syntact.tab.c" /* yacc.c:1646  */
+#line 125 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.size = atoi((yyvsp[0].TEXT)); printf("size1");}
+#line 1546 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 113 "Syntact.y" /* yacc.c:1646  */
-    {printf(" Path and Size");   }
-#line 1506 "Syntact.tab.c" /* yacc.c:1646  */
+#line 126 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.path = (yyvsp[0].TEXT);       printf("path1");}
+#line 1552 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 114 "Syntact.y" /* yacc.c:1646  */
-    {printf(" Size Unit Path");  }
-#line 1512 "Syntact.tab.c" /* yacc.c:1646  */
+#line 127 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.unit = (yyvsp[0].TEXT);       printf("UNit1");}
+#line 1558 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 115 "Syntact.y" /* yacc.c:1646  */
-    { }
-#line 1518 "Syntact.tab.c" /* yacc.c:1646  */
+#line 128 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.fit =  (yyvsp[0].TEXT);       printf("Fit1");}
+#line 1564 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 116 "Syntact.y" /* yacc.c:1646  */
-    {printf(" Size and Path ");  }
-#line 1524 "Syntact.tab.c" /* yacc.c:1646  */
+#line 129 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.size = atoi((yyvsp[0].TEXT)); printf("size2");}
+#line 1570 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 117 "Syntact.y" /* yacc.c:1646  */
-    {printf(" Path and Size");   }
-#line 1530 "Syntact.tab.c" /* yacc.c:1646  */
+#line 130 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.path = (yyvsp[0].TEXT);       printf("path2");}
+#line 1576 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 118 "Syntact.y" /* yacc.c:1646  */
-    {printf(" Size Unit Path");  }
-#line 1536 "Syntact.tab.c" /* yacc.c:1646  */
+#line 131 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.unit = (yyvsp[0].TEXT);       printf("unit2");}
+#line 1582 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 122 "Syntact.y" /* yacc.c:1646  */
-    {printf(" Path ");}
-#line 1542 "Syntact.tab.c" /* yacc.c:1646  */
+#line 132 "Syntact.y" /* yacc.c:1646  */
+    { tempDisk.fit =  (yyvsp[0].TEXT);       printf("Fit2");}
+#line 1588 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 146 "Syntact.y" /* yacc.c:1646  */
-    { printf(" Path and Name ");}
-#line 1548 "Syntact.tab.c" /* yacc.c:1646  */
+#line 136 "Syntact.y" /* yacc.c:1646  */
+    {printf(" Path ");}
+#line 1594 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 147 "Syntact.y" /* yacc.c:1646  */
-    { printf(" Name and Path ");}
-#line 1554 "Syntact.tab.c" /* yacc.c:1646  */
+#line 139 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1600 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 140 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1606 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 151 "Syntact.y" /* yacc.c:1646  */
-    { printf(" Identify ");     }
-#line 1560 "Syntact.tab.c" /* yacc.c:1646  */
+#line 141 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1612 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 152 "Syntact.y" /* yacc.c:1646  */
+#line 142 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1566 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1618 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 155 "Syntact.y" /* yacc.c:1646  */
-    { printf(" Name , Path , Id ");     }
-#line 1572 "Syntact.tab.c" /* yacc.c:1646  */
+#line 143 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1624 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 156 "Syntact.y" /* yacc.c:1646  */
+#line 144 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1578 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1630 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 179 "Syntact.y" /* yacc.c:1646  */
+#line 145 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1584 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1636 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 180 "Syntact.y" /* yacc.c:1646  */
+#line 146 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1590 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1642 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 181 "Syntact.y" /* yacc.c:1646  */
+#line 147 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1596 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1648 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 184 "Syntact.y" /* yacc.c:1646  */
+#line 148 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1602 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1654 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 185 "Syntact.y" /* yacc.c:1646  */
+#line 149 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1608 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1660 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 186 "Syntact.y" /* yacc.c:1646  */
+#line 150 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1614 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1666 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 187 "Syntact.y" /* yacc.c:1646  */
+#line 151 "Syntact.y" /* yacc.c:1646  */
     {;}
-#line 1620 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1672 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 191 "Syntact.y" /* yacc.c:1646  */
-    { printf(" Mbr  "); }
-#line 1626 "Syntact.tab.c" /* yacc.c:1646  */
+#line 152 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1678 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 192 "Syntact.y" /* yacc.c:1646  */
-    { printf(" Disc "); }
-#line 1632 "Syntact.tab.c" /* yacc.c:1646  */
+#line 153 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1684 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 193 "Syntact.y" /* yacc.c:1646  */
-    {}
-#line 1638 "Syntact.tab.c" /* yacc.c:1646  */
+#line 154 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1690 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 197 "Syntact.y" /* yacc.c:1646  */
-    {}
-#line 1644 "Syntact.tab.c" /* yacc.c:1646  */
+#line 161 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Path and Name ");}
+#line 1696 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 198 "Syntact.y" /* yacc.c:1646  */
+#line 162 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Name and Path ");}
+#line 1702 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 42:
+#line 166 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Identify ");     }
+#line 1708 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 43:
+#line 167 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1714 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 44:
+#line 170 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Name , Path , Id ");     }
+#line 1720 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 45:
+#line 171 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1726 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 46:
+#line 175 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Path ");  }
+#line 1732 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 47:
+#line 176 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1738 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 48:
+#line 194 "Syntact.y" /* yacc.c:1646  */
+    {strcpy((yyval.TEXT),(yyvsp[0].TEXT));}
+#line 1744 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 49:
+#line 195 "Syntact.y" /* yacc.c:1646  */
+    {strcpy((yyval.TEXT),(yyvsp[0].TEXT));}
+#line 1750 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 50:
+#line 196 "Syntact.y" /* yacc.c:1646  */
+    {strcpy((yyval.TEXT),(yyvsp[0].TEXT));}
+#line 1756 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 51:
+#line 199 "Syntact.y" /* yacc.c:1646  */
+    {strcpy((yyval.TEXT),(yyvsp[0].TEXT));}
+#line 1762 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 52:
+#line 200 "Syntact.y" /* yacc.c:1646  */
+    {strcpy((yyval.TEXT),(yyvsp[0].TEXT));}
+#line 1768 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 201 "Syntact.y" /* yacc.c:1646  */
+    {strcpy((yyval.TEXT),(yyvsp[0].TEXT));}
+#line 1774 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 54:
+#line 202 "Syntact.y" /* yacc.c:1646  */
+    {;}
+#line 1780 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 55:
+#line 206 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Mbr  "); }
+#line 1786 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 56:
+#line 207 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Disc "); }
+#line 1792 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 57:
+#line 208 "Syntact.y" /* yacc.c:1646  */
     {}
-#line 1650 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1798 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 58:
+#line 212 "Syntact.y" /* yacc.c:1646  */
+    { strcpy((yyval.TEXT),(yyvsp[0].TEXT));}
+#line 1804 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 59:
+#line 213 "Syntact.y" /* yacc.c:1646  */
+    { strcpy((yyval.TEXT),(yyvsp[0].TEXT)); }
+#line 1810 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 216 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Fast");}
+#line 1816 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 217 "Syntact.y" /* yacc.c:1646  */
+    { printf( "Full"); }
+#line 1822 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 62:
+#line 221 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Primary");}
+#line 1828 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 63:
+#line 222 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Extebded");}
+#line 1834 "Syntact.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 64:
+#line 223 "Syntact.y" /* yacc.c:1646  */
+    { printf(" Logic"); }
+#line 1840 "Syntact.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1654 "Syntact.tab.c" /* yacc.c:1646  */
+#line 1844 "Syntact.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1885,25 +2075,22 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 211 "Syntact.y" /* yacc.c:1906  */
+#line 226 "Syntact.y" /* yacc.c:1906  */
 
 
 
- struct  disk {
-    int size;
-    char path[300];
-    char unit;
-    char fit[2];
-};
+ 
+FILE *fp;
+char direccion[300];
+int c;
 
 
 
 main(void){
 
-printf("Welcome to the diskParter \n");
-   if(yyparse()== 0)
-       printf("hola");
-   return 0;
+  printf("Welcome to the diskParter \n");
+  
+   return yyparse();
 
 
 }
@@ -1913,3 +2100,39 @@ void yyerror( char* mens)
     fprintf(stderr , mens,  "%s\n"  );
 }
 
+
+void  createDisk(struct disk diskInput ){
+        fp = fopen( diskInput.path,"w");
+
+
+}
+
+void cleanStr( char input[]){
+
+int index ;
+
+    for(index = 0 ; index < sizeof(input) ; index++){
+        c = input[index];
+        if(c != '\"'){
+            direccion[index] = c;
+        }
+    }
+
+ printf(direccion);
+
+}
+
+
+void checkMakeDisk(struct disk input){
+
+    if(input.path == NULL){
+        printf("Path obligatorio ");
+    }
+    else if( (input.size == NULL ) || (input.size < 1)){
+        printf("Definir size del disco obligatorio");
+    }
+    else {
+        printf("the path is: ","%s" , input.path); 
+    }
+
+}
